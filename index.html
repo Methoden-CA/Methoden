@@ -1,28 +1,25 @@
 <!doctype html>
 <html lang="fr">
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
   <title>JBG-Methoden — Accueil</title>
-  
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="icon" href="favicon.ico" type="image/x-icon">
-<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-<link rel="apple-touch-icon" href="favicon.ico">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-
 </head>
 <body>
-  
-<header class="header header--home">
-  <div class="container nav nav--center">
-    <a class="brand" href="index.html" aria-label="Accueil">
-      <img src="logo.png" alt="Logo JBG Methoden" class="brand-logo brand-logo--center">
-    </a>
-  </div>
-</header>
+  <header class="header header--home">
+    <div class="container nav nav--center">
+      <a class="brand" href="index.html" aria-label="Accueil">
+        <img src="logo.png" alt="Logo JBG Methoden" class="brand-logo brand-logo--center">
+      </a>
+    </div>
+  </header>
 
   <main>
     <section class="hero">
@@ -38,72 +35,104 @@
       </div>
     </section>
   </main>
-  
-<footer>
-  <div class="container">
-    © 2025 Jacques-Bernard Gauthier, PhD — Conseiller en méthodologie de la recherche
-  </div>
-</footer>
 
+  <footer>
+    <div class="container">
+      © 2025 Jacques-Bernard Gauthier, PhD — Conseiller en méthodologie de la recherche
+    </div>
+  </footer>
 
-  <!-- Animation for logo/title (v8.7.6) -->
+  <!-- Animation accélérée + ligne rouge persistante avec pulsation lente (v8.7.7) -->
   <style>
-  @keyframes fadeSlideDown{0%{opacity:0;transform:translateY(-25px)}100%{opacity:1;transform:translateY(0)}}
-  @keyframes underlineExpandCenter{0%{transform:scaleX(0);opacity:0}30%{opacity:1}100%{transform:scaleX(1);opacity:1}}
-  .logo-animated{opacity:0;animation:fadeSlideDown 3.5s ease forwards}
-  .title-animated{opacity:0;animation:fadeSlideDown 3s ease forwards;animation-delay:1s}
-  .underline-red{height:3px;background-color:#900601;margin:.5rem auto 1.2rem auto;width:80px;opacity:0;transform-origin:center;transform:scaleX(0);animation:underlineExpandCenter 3s ease forwards;animation-delay:2s;border-radius:2px}
+    /* Animations accélérées (~30% plus rapides que v8.7.1) */
+    @keyframes fadeSlideDown { 0% { opacity: 0; transform: translateY(-20px); } 100% { opacity: 1; transform: translateY(0); } }
+    @keyframes underlineGrowCenter { 0% { transform: scaleX(0); opacity: 0; } 30% { opacity: 1; } 100% { transform: scaleX(1); opacity: 1; } }
+    /* Pulsation très subtile et lente, pour rester professionnel */
+    @keyframes underlinePulse { 0% { transform: scaleX(1); } 50% { transform: scaleX(1.03); } 100% { transform: scaleX(1); } }
+
+    .logo-animated { opacity: 0; animation: fadeSlideDown 2.4s ease forwards; }
+    .title-animated { opacity: 0; animation: fadeSlideDown 2.1s ease forwards; animation-delay: 0.7s; }
+
+    .underline-red {
+      height: 3px;
+      background-color: #900601;
+      margin: .5rem auto 1.2rem auto;
+      width: 80px;
+      opacity: 0;
+      transform-origin: center;
+      transform: scaleX(0);
+      border-radius: 2px;
+    }
+    /* Pendant l'animation initiale */
+    .underline-animate { animation: underlineGrowCenter 2.1s ease forwards; animation-delay: 1.5s; }
+    /* État persistant : visible en permanence + pulsation très lente */
+    .underline-shown { opacity: 1 !important; transform: scaleX(1) !important; }
+    .underline-pulse { animation: underlinePulse 6s ease-in-out infinite; }
+
   </style>
   <script>
-  window.addEventListener('DOMContentLoaded', function(){
-    const KEY='animationPlayed_v876';
-    if (!localStorage.getItem(KEY)) {
+    window.addEventListener('DOMContentLoaded', function () {
+      const KEY = 'homeAnimPlayed_v877_pulse';
       const logo = document.querySelector('img.brand-logo--center') || document.querySelector('header img') || document.querySelector('img');
       const title = document.querySelector('.hero h1.name') || document.querySelector('.hero h1') || document.querySelector('h1');
       const subtitle = document.querySelector('.hero h2.role') || document.querySelector('.hero h2') || document.querySelector('h2');
 
-      if (logo) logo.classList.add('logo-animated');
-      if (title) title.classList.add('title-animated');
-
-      if (subtitle && subtitle.parentNode) {
-        const olds = subtitle.parentNode.querySelectorAll('.underline-red');
-        olds.forEach(el => el.remove());
+      // S'assurer qu'il n'y a QU'UNE seule ligne rouge
+      function ensureUnderline(persistent) {
+        const parent = (subtitle && subtitle.parentNode) || (title && title.parentNode) || document.body;
+        // supprimer toutes les anciennes lignes
+        Array.from(parent.querySelectorAll('.underline-red')).forEach(el => el.remove());
+        // créer la nouvelle
         const u = document.createElement('div');
-        u.className='underline-red';
-        subtitle.parentNode.insertBefore(u, subtitle.nextSibling);
-      } else if (title && title.parentNode) {
-        const olds = title.parentNode.querySelectorAll('.underline-red');
-        olds.forEach(el => el.remove());
-        const u = document.createElement('div');
-        u.className='underline-red';
-        title.parentNode.insertBefore(u, title.nextSibling);
+        u.className = 'underline-red';
+        parent.insertBefore(u, (subtitle || title).nextSibling);
+        if (persistent) {
+          u.classList.add('underline-shown', 'underline-pulse');
+        } else {
+          u.classList.add('underline-animate');
+          // à la fin de l'animation, on bascule en mode persistant + pulsation
+          setTimeout(() => {
+            u.classList.remove('underline-animate');
+            u.classList.add('underline-shown', 'underline-pulse');
+          }, 2100 + 1500); // durée + délai
+        }
       }
-      setTimeout(()=>localStorage.setItem(KEY,'true'), 4200);
-    }
-  });
+
+      // Si l'animation n'a pas encore été jouée
+      if (!localStorage.getItem(KEY)) {
+        if (logo) logo.classList.add('logo-animated');
+        if (title) title.classList.add('title-animated');
+        ensureUnderline(false);
+        // marquer comme joué une fois l'animation terminée
+        setTimeout(() => localStorage.setItem(KEY, 'true'), 2600);
+      } else {
+        // Animation déjà jouée : pas d'animation, mais ligne rouge toujours visible + pulsation lente
+        ensureUnderline(true);
+      }
+    });
   </script>
 
-  <!-- Cookie banner (v8.7.6 clean) -->
+  <!-- Bannière cookies (inchangée) -->
   <style>
-  .cookie-banner{position:fixed;bottom:0;left:0;width:100%;background:#fafafa;color:#3C4750;
-    box-shadow:0 -2px 10px rgba(0,0,0,0.08);border-radius:12px 12px 0 0;padding:1rem 1.2rem;
-    display:none;flex-direction:column;align-items:center;text-align:center;z-index:100;
-    transform:translateY(100%);opacity:0}
-  .cookie-banner.show{animation:slideUpFade .8s ease forwards;display:flex}
-  @keyframes slideUpFade{0%{transform:translateY(100%);opacity:0}60%{transform:translateY(-10px);opacity:.6}100%{transform:translateY(0);opacity:1}}
-  .cookie-buttons{display:flex;gap:.8rem;margin-top:.8rem}
-  .cookie-buttons button{border:1.5px solid #1e3a8a;background:transparent;color:#1e3a8a;border-radius:.5rem;
-    padding:.6rem 1.1rem;font-weight:700;cursor:pointer;transition:all .25s ease}
-  .cookie-buttons #cookie-accept{background:#1e3a8a;color:#fff}
-  .cookie-buttons #cookie-accept:hover{background:#2563eb}
-  .cookie-buttons #cookie-refuse{border-color:#900601;color:#900601}
-  .cookie-buttons #cookie-refuse:hover{background:#900601;color:#fff}
-  .cookie-confirm{position:fixed;bottom:0;left:50%;transform:translateX(-50%);background:#d1fae5;color:#065f46;
-    padding:.8rem 1.2rem;border-radius:10px 10px 0 0;box-shadow:0 -2px 10px rgba(0,0,0,0.08);
-    display:none;font-weight:600;z-index:101;opacity:0}
-  .cookie-confirm.show{animation:fadeInConfirm .5s ease forwards}
-  @keyframes fadeInConfirm{from{opacity:0;transform:translate(-50%,10px)}to{opacity:1;transform:translate(-50%,0)}}
-  @keyframes fadeOutBanner{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(20px)}}
+    .cookie-banner{position:fixed;bottom:0;left:0;width:100%;background:#fafafa;color:#3C4750;
+      box-shadow:0 -2px 10px rgba(0,0,0,0.08);border-radius:12px 12px 0 0;padding:1rem 1.2rem;
+      display:none;flex-direction:column;align-items:center;text-align:center;z-index:100;
+      transform:translateY(100%);opacity:0}
+    .cookie-banner.show{animation:slideUpFade .8s ease forwards;display:flex}
+    @keyframes slideUpFade{0%{transform:translateY(100%);opacity:0}60%{transform:translateY(-10px);opacity:.6}100%{transform:translateY(0);opacity:1}}
+    .cookie-buttons{display:flex;gap:.8rem;margin-top:.8rem}
+    .cookie-buttons button{border:1.5px solid #1e3a8a;background:transparent;color:#1e3a8a;border-radius:.5rem;
+      padding:.6rem 1.1rem;font-weight:700;cursor:pointer;transition:all .25s ease}
+    .cookie-buttons #cookie-accept{background:#1e3a8a;color:#fff}
+    .cookie-buttons #cookie-accept:hover{background:#2563eb}
+    .cookie-buttons #cookie-refuse{border-color:#900601;color:#900601}
+    .cookie-buttons #cookie-refuse:hover{background:#900601;color:#fff}
+    .cookie-confirm{position:fixed;bottom:0;left:50%;transform:translateX(-50%);background:#d1fae5;color:#065f46;
+      padding:.8rem 1.2rem;border-radius:10px 10px 0 0;box-shadow:0 -2px 10px rgba(0,0,0,0.08);
+      display:none;font-weight:600;z-index:101;opacity:0}
+    .cookie-confirm.show{animation:fadeInConfirm .5s ease forwards}
+    @keyframes fadeInConfirm{from{opacity:0;transform:translate(-50%,10px)}to{opacity:1;transform:translate(-50%,0)}}
+    @keyframes fadeOutBanner{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(20px)}}
   </style>
   <div class="cookie-banner" id="cookie-banner">
     <p>Ce site utilise des témoins (cookies) essentiels pour assurer son bon fonctionnement.<br>
@@ -115,48 +144,47 @@
   </div>
   <div class="cookie-confirm" id="cookie-confirm">✅ Vos préférences de témoins ont été enregistrées.</div>
   <script>
-  window.addEventListener('DOMContentLoaded', function() {
-    var banner = document.getElementById('cookie-banner');
-    var confirmMsg = document.getElementById('cookie-confirm');
-    var consent = null;
-    try { consent = localStorage.getItem('cookieConsent'); } catch(e) {}
+    window.addEventListener('DOMContentLoaded', function() {
+      var banner = document.getElementById('cookie-banner');
+      var confirmMsg = document.getElementById('cookie-confirm');
+      var consent = null;
+      try { consent = localStorage.getItem('cookieConsent'); } catch(e) {}
+      if (!consent && banner) { banner.classList.add('show'); }
+      else if (banner) { banner.style.display = 'none'; }
 
-    if (!consent && banner) { banner.classList.add('show'); }
-    else if (banner) { banner.style.display = 'none'; }
-
-    function showConfirmation() {
-      if (!confirmMsg) return;
-      setTimeout(function(){
-        confirmMsg.classList.add('show');
-        confirmMsg.style.display = 'block';
+      function showConfirmation() {
+        if (!confirmMsg) return;
         setTimeout(function(){
-          confirmMsg.style.opacity = '0';
+          confirmMsg.classList.add('show');
+          confirmMsg.style.display = 'block';
           setTimeout(function(){
-            confirmMsg.classList.remove('show');
-            confirmMsg.style.display = 'none';
-            confirmMsg.style.opacity = '1';
-          }, 500);
-        }, 3000);
-      }, 300);
-    }
+            confirmMsg.style.opacity = '0';
+            setTimeout(function(){
+              confirmMsg.classList.remove('show');
+              confirmMsg.style.display = 'none';
+              confirmMsg.style.opacity = '1';
+            }, 500);
+          }, 3000);
+        }, 300);
+      }
 
-    function closeBanner() {
-      if (!banner) return;
-      banner.style.animation = 'fadeOutBanner 0.5s ease forwards';
-      setTimeout(function(){ banner.style.display = 'none'; banner.classList.remove('show'); }, 480);
-    }
+      function closeBanner() {
+        if (!banner) return;
+        banner.style.animation = 'fadeOutBanner 0.5s ease forwards';
+        setTimeout(function(){ banner.style.display = 'none'; banner.classList.remove('show'); }, 480);
+      }
 
-    var acc = document.getElementById('cookie-accept');
-    var ref = document.getElementById('cookie-refuse');
-    if (acc) acc.addEventListener('click', function(){
-      try { localStorage.setItem('cookieConsent', 'accepted'); } catch(e) {}
-      closeBanner(); showConfirmation();
+      var acc = document.getElementById('cookie-accept');
+      var ref = document.getElementById('cookie-refuse');
+      if (acc) acc.addEventListener('click', function(){
+        try { localStorage.setItem('cookieConsent', 'accepted'); } catch(e) {}
+        closeBanner(); showConfirmation();
+      });
+      if (ref) ref.addEventListener('click', function(){
+        try { localStorage.setItem('cookieConsent', 'refused'); } catch(e) {}
+        closeBanner(); showConfirmation();
+      });
     });
-    if (ref) ref.addEventListener('click', function(){
-      try { localStorage.setItem('cookieConsent', 'refused'); } catch(e) {}
-      closeBanner(); showConfirmation();
-    });
-  });
   </script>
 </body>
 </html>
