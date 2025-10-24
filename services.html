@@ -1,15 +1,13 @@
 <!doctype html>
 <html lang="fr">
 <head>
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
-<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-<link rel="apple-touch-icon" href="favicon.ico">
-
-
   <title>JBG-Methoden — Mes services</title>
   
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
@@ -34,34 +32,23 @@
   <main>
     <section class="section">
       <div class="container">
-        <h1>Mes services</h1>
+        <h1 class="use-underline">Mes services</h1>
         <div class="card-grid">
           <article class="card">
             <h3 class="upper">FORMATIONS</h3>
-            <ul>
-              <li>Introductive et intermédiaire sur <strong>SPSS</strong></li>
-              <li>Introductive, intermédiaire et avancée sur <strong>MAXQDA</strong></li>
-            </ul>
+            <p>SPSS — Introductive et intermédiaire.<br>MAXQDA — Introductive, intermédiaire et avancée.</p>
           </article>
-
           <article class="card">
             <h3 class="upper">ACCOMPAGNEMENT DES ÉQUIPES</h3>
-            <ul>
-              <li>Soutien au développement de protocole</li>
-              <li>Soutien à la conception d’outils</li>
-              <li>Soutien à la collecte de données</li>
-              <li>Soutien à l’analyse des données</li>
-            </ul>
+            <p>Soutien au développement de protocole.<br>Soutien à la conception d’outils.<br>Collecte et analyse (quantitative, qualitative, mixte).</p>
           </article>
-
           <article class="card">
             <h3 class="upper">ANALYSES DE DONNÉES</h3>
-            <p>Analyses quantitatives, qualitatives ou mixtes selon les objectifs du projet, avec rapports clairs et exploitables.</p>
+            <p>Analyses quantitatives, qualitatives ou mixtes.</p>
           </article>
-
           <article class="card">
             <h3 class="upper">AVIS MÉTHODOLOGIQUE</h3>
-            <p>Révision des démarches méthodologiques (des projets de recherche, demandes de subvention, articles, mémoires, thèses, etc.) et conseils appuyés par des références pertinentes.</p>
+            <p>Révision des démarches méthodologiques (projets, subventions, articles, mémoires, thèses, etc.) et conseils appuyés par des références pertinentes.</p>
           </article>
         </div>
       </div>
@@ -75,279 +62,55 @@
 </footer>
 
 
-<div class="cookie-banner" id="cookie-banner">
-  <p>Ce site utilise des témoins (cookies) essentiels pour assurer son bon fonctionnement.<br>
-  Aucun témoin de suivi n’est utilisé. En continuant, vous acceptez l’utilisation minimale de ces témoins.</p>
-  <div class="cookie-buttons">
-    <button class="accept" onclick="acceptCookies()">Accepter removed -->
-    <button class="refuse" onclick="refuseCookies()">Refuser removed -->
+  <!-- Cookie banner (shared) -->
+  <style>
+  .cookie-banner{position:fixed;bottom:0;left:0;width:100%;background:#fafafa;color:#3C4750;
+    box-shadow:0 -2px 10px rgba(0,0,0,0.08);border-radius:12px 12px 0 0;padding:1rem 1.2rem;
+    display:none;flex-direction:column;align-items:center;text-align:center;z-index:100;
+    transform:translateY(100%);opacity:0}
+  .cookie-banner.show{animation:slideUpFade .8s ease forwards;display:flex}
+  @keyframes slideUpFade{0%{transform:translateY(100%);opacity:0}60%{transform:translateY(-10px);opacity:.6}100%{transform:translateY(0);opacity:1}}
+  .cookie-buttons{display:flex;gap:.8rem;margin-top:.8rem}
+  .cookie-buttons button{border:1.5px solid #1e3a8a;background:transparent;color:#1e3a8a;border-radius:.5rem;
+    padding:.6rem 1.1rem;font-weight:700;cursor:pointer;transition:all .25s ease}
+  .cookie-buttons #cookie-accept{background:#1e3a8a;color:#fff}
+  .cookie-buttons #cookie-accept:hover{background:#2563eb}
+  .cookie-buttons #cookie-refuse{border-color:#900601;color:#900601}
+  .cookie-buttons #cookie-refuse:hover{background:#900601;color:#fff}
+  .cookie-confirm{position:fixed;bottom:0;left:50%;transform:translateX(-50%);background:#d1fae5;color:#065f46;
+    padding:.8rem 1.2rem;border-radius:10px 10px 0 0;box-shadow:0 -2px 10px rgba(0,0,0,0.08);
+    display:none;font-weight:600;z-index:101;opacity:0}
+  .cookie-confirm.show{animation:fadeInConfirm .5s ease forwards}
+  @keyframes fadeInConfirm{from{opacity:0;transform:translate(-50%,10px)}to{opacity:1;transform:translate(-50%,0)}}
+  @keyframes fadeOutBanner{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(20px)}}
+  </style>
+  <div class="cookie-banner" id="cookie-banner">
+    <p>Ce site utilise des témoins (cookies) essentiels pour assurer son bon fonctionnement.<br>
+    Aucun témoin de suivi n’est utilisé. En continuant, vous acceptez l’utilisation minimale de ces témoins.</p>
+    <div class="cookie-buttons">
+      <button id="cookie-accept">Accepter</button>
+      <button id="cookie-refuse">Refuser</button>
+    </div>
   </div>
-</div>
-<script>
-  const banner = document.getElementById('cookie-banner');
-  const consent = localStorage.getItem('cookieConsent');
-  if (!consent) {
-    banner.style.display = 'flex';
-  } else {
-    banner.style.display = 'none';
-  }
-  function acceptCookies() {
-    localStorage.setItem('cookieConsent', 'accepted');
-    banner.style.display = 'none';
-  }
-  function refuseCookies() {
-    localStorage.setItem('cookieConsent', 'refused');
-    banner.style.display = 'none';
-  }
-</script>
-
-
-<div class="cookie-banner" id="cookie-banner">
-  <p>Ce site utilise des témoins (cookies) essentiels pour assurer son bon fonctionnement.<br>
-  Aucun témoin de suivi n’est utilisé. En continuant, vous acceptez l’utilisation minimale de ces témoins.</p>
-  <div class="cookie-buttons">
-    <button class="accept" onclick="acceptCookies()">Accepter removed -->
-    <button class="refuse" onclick="refuseCookies()">Refuser removed -->
-  </div>
-</div>
-<div class="cookie-confirm" id="cookie-confirm">✅ Vos préférences de témoins ont été enregistrées.</div>
-<script>
-  const banner = document.getElementById('cookie-banner');
-  const confirmMsg = document.getElementById('cookie-confirm');
-  const consent = localStorage.getItem('cookieConsent');
-  if (!consent) {
-    banner.style.display = 'flex';
-  } else {
-    banner.style.display = 'none';
-  }
-  function showConfirmation() {
-    confirmMsg.style.display = 'block';
-    confirmMsg.style.opacity = '1';
-    setTimeout(() => {
-      confirmMsg.style.opacity = '0';
-      setTimeout(() => confirmMsg.style.display = 'none', 500);
-    }, 3000);
-  }
-  function acceptCookies() {
-    localStorage.setItem('cookieConsent', 'accepted');
-    banner.style.animation = 'fadeOutBanner 0.5s ease forwards';
-    setTimeout(() => {banner.style.display = 'none'; showConfirmation();}, 500);
-  }
-  function refuseCookies() {
-    localStorage.setItem('cookieConsent', 'refused');
-    banner.style.animation = 'fadeOutBanner 0.5s ease forwards';
-    setTimeout(() => {banner.style.display = 'none'; showConfirmation();}, 500);
-  }
-</script>
-<style>
-@keyframes fadeOutBanner {
-  from {opacity: 1; transform: translateY(0);}
-  to {opacity: 0; transform: translateY(20px);}
-}
-</style>
-
-
-<!-- Cookie banner (v8.4) -->
-<style>
-.cookie-banner {
-  position: fixed;
-  bottom: 0; left: 0; width: 100%;
-  background: #fafafa; color: #3C4750;
-  box-shadow: 0 -2px 10px rgba(0,0,0,0.08);
-  border-radius: 12px 12px 0 0;
-  padding: 1rem 1.2rem;
-  display: none;
-  flex-direction: column; align-items: center; text-align: center;
-  z-index: 100;
-  transform: translateY(100%); opacity: 0;
-}
-.cookie-banner.show { animation: slideUpFade .8s ease forwards; display: flex; }
-@keyframes slideUpFade { 0% {transform: translateY(100%); opacity: 0;} 60% {transform: translateY(-10px); opacity: .6;} 100% {transform: translateY(0); opacity: 1;} }
-@keyframes fadeOutBanner { from {opacity: 1; transform: translateY(0);} to {opacity: 0; transform: translateY(20px);} }
-.cookie-buttons { display: flex; gap: .8rem; margin-top: .8rem; }
-.cookie-buttons button {
-  border: 1.5px solid #1e3a8a; background: transparent; color: #1e3a8a;
-  border-radius: .5rem; padding: .6rem 1.1rem; font-weight: 700; cursor: pointer;
-  transition: all .25s ease;
-}
-.cookie-buttons button.accept { background: #1e3a8a; color: #fff; }
-.cookie-buttons button.accept:hover { background: #2563eb; }
-.cookie-buttons button.refuse { border-color: #900601; color: #900601; }
-.cookie-buttons button.refuse:hover { background: #900601; color: #fff; }
-
-.cookie-confirm {
-  position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
-  background: #d1fae5; color: #065f46; padding: .8rem 1.2rem;
-  border-radius: 10px 10px 0 0; box-shadow: 0 -2px 10px rgba(0,0,0,0.08);
-  display: none; font-weight: 600; z-index: 101; opacity: 0;
-}
-.cookie-confirm.show { animation: fadeInConfirm .5s ease forwards; }
-@keyframes fadeInConfirm { from {opacity: 0; transform: translate(-50%, 10px);} to {opacity: 1; transform: translate(-50%, 0);} }
-</style>
-
-<div class="cookie-banner" id="cookie-banner">
-  <p>Ce site utilise des témoins (cookies) essentiels pour assurer son bon fonctionnement.<br>
-  Aucun témoin de suivi n’est utilisé. En continuant, vous acceptez l’utilisation minimale de ces témoins.</p>
-  <div class="cookie-buttons">
-    <button class="accept" id="cookie-accept">Accepter removed -->
-    <button class="refuse" id="cookie-refuse">Refuser removed -->
-  </div>
-</div>
-<div class="cookie-confirm" id="cookie-confirm">✅ Vos préférences de témoins ont été enregistrées.</div>
-
-<script>
-window.addEventListener('DOMContentLoaded', function() {
-  try {
+  <div class="cookie-confirm" id="cookie-confirm">✅ Vos préférences de témoins ont été enregistrées.</div>
+  <script>
+  window.addEventListener('DOMContentLoaded', function() {
     var banner = document.getElementById('cookie-banner');
     var confirmMsg = document.getElementById('cookie-confirm');
-    var acceptBtn = document.getElementById('cookie-accept');
-    var refuseBtn = document.getElementById('cookie-refuse');
-
-    if (!banner || !acceptBtn || !refuseBtn || !confirmMsg) return;
-
-    var consent = localStorage.getItem('cookieConsent');
-    if (!consent) {
-      // show banner
-      banner.classList.add('show');
-    } else {
-      banner.style.display = 'none';
-    }
-
-    function showConfirmation() {
-      setTimeout(function() { // slight delay for natural feel
-        confirmMsg.classList.add('show');
-        confirmMsg.style.display = 'block';
-        setTimeout(function() {
-          confirmMsg.style.opacity = '0';
-          setTimeout(function() {
-            confirmMsg.classList.remove('show');
-            confirmMsg.style.display = 'none';
-            confirmMsg.style.opacity = '1';
-          }, 500);
-        }, 3000);
+    var consent = null;
+    try { consent = localStorage.getItem('cookieConsent'); } catch(e) {}
+    if (!consent && banner) { banner.classList.add('show'); }
+    else if (banner) { banner.style.display = 'none'; }
+    function showConfirmation() { if (!confirmMsg) return;
+      setTimeout(function(){ confirmMsg.classList.add('show'); confirmMsg.style.display='block';
+        setTimeout(function(){ confirmMsg.style.opacity='0'; setTimeout(function(){ confirmMsg.classList.remove('show'); confirmMsg.style.display='none'; confirmMsg.style.opacity='1'; }, 500); }, 3000);
       }, 300);
     }
-
-    function closeBanner() {
-      banner.style.animation = 'fadeOutBanner 0.5s ease forwards';
-      setTimeout(function() {
-        banner.style.display = 'none';
-        banner.classList.remove('show');
-      }, 480);
-    }
-
-    acceptBtn.addEventListener('click', function() {
-      try { localStorage.setItem('cookieConsent', 'accepted'); } catch(e) {}
-      closeBanner();
-      showConfirmation();
-    });
-
-    refuseBtn.addEventListener('click', function() {
-      try { localStorage.setItem('cookieConsent', 'refused'); } catch(e) {}
-      closeBanner();
-      showConfirmation();
-    });
-
-  } catch (err) {
-    console.error('Cookie banner error:', err);
-  }
-});
-</script>
-
-
-
-<style>
-.cookie-pref-btn {
-  position: fixed;
-  bottom: 15px;
-  right: 15px;
-  background: #fafafa;
-  color: #3C4750;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  padding: .55rem .9rem;
-  font-weight: 700;
-  font-family: Lato, sans-serif;
-  display: none;
-  align-items: center;
-  gap: .45rem;
-  box-shadow: 0 8px 18px rgba(0,0,0,.08);
-  cursor: pointer;
-  z-index: 102;
-  opacity: 0;
-  transform: translateY(6px);
-  animation: cookiePrefFadeIn .8s ease forwards;
-}
-.cookie-pref-btn:hover {
-  background: #e0e7ff;
-  transform: translateY(0);
-  box-shadow: 0 10px 22px rgba(0,0,0,.12);
-}
-.cookie-pref-gear { font-size: 1.05rem; line-height: 1; }
-@keyframes cookiePrefFadeIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-</style>
-
-<!-- removed button  id="cookie-pref-btn">
-  <span class="cookie-pref-gear">⚙️</span> Modifier mes préférences de témoins
- removed -->
-
-<script>
-window.addEventListener('DOMContentLoaded', function() {
-  // Reuse existing banner if present, or do nothing if not on this page
-  var banner = document.getElementById('cookie-banner');
-  var btn = document.getElementById('cookie-pref-btn');
-
-  function hasConsent() {
-    try { return !!localStorage.getItem('cookieConsent'); } catch(e) { return false; }
-  }
-
-  function showBtn() {
-    if (!btn) return;
-    btn.style.display = 'flex';
-  }
-  function hideBtn() {
-    if (!btn) return;
-    btn.style.display = 'none';
-  }
-
-  // Initial visibility: if consent already chosen, show the button to allow change; else hide (banner is visible)
-  if (hasConsent()) {
-    showBtn();
-  } else {
-    hideBtn();
-  }
-
-  // Button opens the banner again and clears previous animation state
-  if (btn) {
-    btn.addEventListener('click', function() {
-      try { localStorage.removeItem('cookieConsent'); } catch(e) {}
-      if (banner) {
-        banner.style.display = 'flex';
-        banner.classList.remove('show');
-        // force reflow to restart animation
-        void banner.offsetWidth;
-        banner.classList.add('show');
-      }
-      hideBtn();
-    });
-  }
-
-  // When user accepts/refuses, hide the button (since choice is fresh)
-  // We hook onto existing buttons if present
-  var acc = document.getElementById('cookie-accept');
-  var ref = document.getElementById('cookie-refuse');
-  function afterChoice() {
-    hideBtn();
-    // show again later after reload
-    setTimeout(function(){ showBtn(); }, 50);
-  }
-  if (acc) acc.addEventListener('click', afterChoice);
-  if (ref) ref.addEventListener('click', afterChoice);
-});
-</script>
-
+    function closeBanner() { if (!banner) return; banner.style.animation='fadeOutBanner .5s ease forwards'; setTimeout(function(){ banner.style.display='none'; banner.classList.remove('show'); }, 480); }
+    var acc=document.getElementById('cookie-accept'); var ref=document.getElementById('cookie-refuse');
+    if(acc) acc.addEventListener('click', function(){ try{localStorage.setItem('cookieConsent','accepted');}catch(e){} closeBanner(); showConfirmation(); });
+    if(ref) ref.addEventListener('click', function(){ try{localStorage.setItem('cookieConsent','refused');}catch(e){} closeBanner(); showConfirmation(); });
+  });
+  </script>
 </body>
 </html>
