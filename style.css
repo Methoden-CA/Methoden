@@ -50,21 +50,32 @@ body{
 }
 .menu a:hover::after{width:100%}
 
-/* Switch de langue (FR/EN) */
+/* Switch de langue (FR/EN) amélioré */
+.header--inner .nav { padding-top: 2.4rem; }
+.header--home  .nav--center { padding-top: 2.4rem; }
 nav.lang{
   position:absolute;
   top:.6rem;
   right:1rem;
   font-size:.9rem;
+  background:rgba(255,255,255,0.9);
+  padding:.2rem .6rem;
+  border-radius:999px;
+  box-shadow:0 1px 4px rgba(0,0,0,0.06);
 }
 nav.lang a, nav.lang strong{
   color:var(--brand);
   text-decoration:none;
   font-weight:700;
+  display:inline-block;
+  padding:0 .1rem;
 }
-nav.lang a:hover{text-decoration:underline}
-/* Option d’air quand le logo est centré (accueil) */
-.header--home .nav--center{padding-top:2.2rem}
+nav.lang a:hover{ text-decoration:underline; }
+@media (max-width:780px){
+  nav.lang{ top:.5rem; right:.6rem; font-size:.85rem; }
+  .header--inner .nav,
+  .header--home  .nav--center { padding-top: 2.8rem; }
+}
 
 /* Hero (accueil) */
 .hero{
@@ -153,7 +164,7 @@ footer{
 
 /* Accessibilité : focus visible sur liens/boutons */
 a:focus-visible, button:focus-visible{
-  outline:3px solid rgba(30,58,138,.4); /* bleu doux */
+  outline:3px solid rgba(30,58,138,.4);
   outline-offset:3px;
   border-radius:8px;
 }
